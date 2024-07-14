@@ -1,0 +1,9 @@
+prewave:
+  api:
+    url: https://prewave.fake/api
+    key: jhoandry:test-key
+    timeout: 30000
+  queryTerm:
+    path: /testQueryTerm
+  alert:
+    path: /testAlerts
