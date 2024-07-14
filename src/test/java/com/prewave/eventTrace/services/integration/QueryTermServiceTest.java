@@ -16,12 +16,6 @@ import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 
 @SpringBootTest
-@TestPropertySource(properties = {
-        "prewave.api.url=https://services.prewave.fake/api/",
-        "prewave.api.key=jhoandry:api-key",
-        "prewave.api.timeout=300",
-        "prewave.queryTerm.path=testQueryTerm",
-})
 public class QueryTermServiceTest {
 
     @Autowired
@@ -31,7 +25,7 @@ public class QueryTermServiceTest {
     private WebClientProvider provider;
 
     @Test
-    @DisplayName("Verifies fetchQueryTerms successfully retrieves and maps query terms")
+    @DisplayName("Should get successfully response, retrieves and maps query terms")
     public void fetchQueryTermsSuccessfully() {
         // given
         QueryTermDto[] mockQueryTerms = {
@@ -54,7 +48,7 @@ public class QueryTermServiceTest {
     }
 
     @Test
-    @DisplayName("Ensures fetchQueryTerms handles exceptions gracefully, returning an empty list")
+    @DisplayName("Should handles exceptions, returning an empty list")
     public void fetchQueryTermsExceptionHandling() {
         // given
         when(provider.applyGET(any(), eq(QueryTermDto[].class), anyLong()))
