@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: eventTrace
+
+
+prewave:
+  api:
+    url: https://services.prewave.ai/adminInterface/api
+    key: jhoandry:4ea4e2daa9584111432ef70910562e047016827fd28013fcdfe3c0ce216423b9
+    timeout: 30000
+  queryTerm:
+    path: /testQueryTerm
+  alert:
+    path: /testAlerts
