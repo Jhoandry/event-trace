@@ -29,7 +29,7 @@ public class WebClientProvider {
     }
 
     public URI buildURIWithQueryParams(String url, MultiValueMap<String, String> queryParams) {
-         return UriComponentsBuilder.fromPath(url)
+         return UriComponentsBuilder.fromUri(URI.create(url))
                  .queryParams(queryParams)
                  .build()
                  .toUri();
