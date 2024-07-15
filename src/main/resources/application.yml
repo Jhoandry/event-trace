@@ -13,3 +13,5 @@ prewave:
     cacheName: queryTerms
   alert:
     path: /testAlerts
+  event:
+    cacheName: events

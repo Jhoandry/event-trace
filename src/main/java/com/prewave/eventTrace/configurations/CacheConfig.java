@@ -15,8 +15,11 @@ public class CacheConfig {
     @Value("${prewave.queryTerm.cacheName}")
     protected String queryTermCacheName;
 
+    @Value("${prewave.event.cacheName}")
+    protected String eventCacheName;
+
     @Bean
     public CacheManager cacheManager() {
-        return new ConcurrentMapCacheManager( queryTermCacheName);
+        return new ConcurrentMapCacheManager(queryTermCacheName, eventCacheName);
     }
 }
