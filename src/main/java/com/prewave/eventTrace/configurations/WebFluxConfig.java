@@ -1,4 +1,4 @@
-package com.prewave.eventTrace.services.integration.webClient;
+package com.prewave.eventTrace.configurations;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
