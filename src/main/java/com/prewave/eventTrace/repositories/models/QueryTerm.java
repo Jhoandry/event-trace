@@ -1,13 +1,14 @@
-package com.prewave.eventTrace.services.integration.dto;
+package com.prewave.eventTrace.repositories.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
-public class QueryTermDto {
+@NoArgsConstructor
+public class QueryTerm {
     private Integer id;
     private String text;
-    private String language;
     private boolean keepOrder;
 }
