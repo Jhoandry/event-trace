@@ -14,8 +14,37 @@ The **_Alert Term Extraction project_** aims to process simplified Prewave data 
 ### Endpoints and Functionality
 The project implements the following endpoints to handle query term extraction and alert matching:
 
- - **GET** `/api/query-terms`: Retrieves query terms from the testQueryTerm API.
- - **Scheduler for Synchronization**: Will be implemented to execute the alert processing task every two minutes and sync the database with the latest data from the APIs.
+ - **GET** `/events`: Retrieves matches from alerts extraction. Body Response:
+   ```json
+   [{
+        "queryTermId": 101,
+        "alertId": "6gbujhu89786",
+        "contents": [
+            {
+                "text": "Wolfgang Lemb, ig metall Germany stands in solidarity with #StrikeForBlackLives",
+                "language": "de",
+                "matches": 3
+            }
+        ]
+    },
+    {
+        "queryTermId": 103,
+        "alertId": "6gbujhu89786",
+        "contents": [
+            {
+                "text": "Wolfgang Lemb, ig metall Germany stands in solidarity with #StrikeForBlackLives",
+                "language": "de",
+                "matches": 3
+            }
+        ]
+    }]
+   ```
+   **queryTermId**: Query Term to which the match belongs.
+   **alertId**: Query Term to which the match belongs.
+   **contents**: Contains all the text matched, the language and occurrences.
+
+
+ - **Scheduler for Synchronization**: Will be implemented to execute the alert processing task every two minutes and sync the latest content matches from the APIs.
 
 ### Required Technologies
 - Java 21
