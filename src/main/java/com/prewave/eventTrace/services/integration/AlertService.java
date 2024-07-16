@@ -20,6 +20,7 @@ public class AlertService extends BaseIntegrationService {
                     AlertDto[].class,
                     timeout);
 
+            System.out.println("<<< Alerts, length: " + alerts.length );
             return List.of(alerts);
         } catch (Exception e) {
             System.err.println("Error getting Alerts, error message: " + e.getMessage());

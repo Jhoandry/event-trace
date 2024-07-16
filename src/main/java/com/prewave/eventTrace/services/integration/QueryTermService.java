@@ -19,6 +19,7 @@ public class QueryTermService extends BaseIntegrationService {
                     QueryTermDto[].class,
                     timeout);
 
+            System.out.println("<<< QueryTerms, length: " + queryTerms.length);
             return List.of(queryTerms);
         } catch (Exception e) {
             System.err.println("Error getting QueryTerms, error message: " + e.getMessage());
