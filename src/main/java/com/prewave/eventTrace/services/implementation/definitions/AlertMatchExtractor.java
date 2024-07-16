@@ -26,7 +26,7 @@ public class AlertMatchExtractor {
             });
         });
 
-        return eventEvents;
+        return EventBuilder.mergeEvents(existingEvents, eventEvents);
     }
 
     private static List<Content> getOccurrences(List<ContentDto> contents, QueryTerm queryTerm) {

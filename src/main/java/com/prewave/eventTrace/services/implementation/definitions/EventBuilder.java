@@ -4,6 +4,7 @@ import com.prewave.eventTrace.repositories.mappers.EventMapper;
 import com.prewave.eventTrace.repositories.models.Content;
 import com.prewave.eventTrace.repositories.models.Event;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,6 +16,17 @@ public class EventBuilder {
                     event.setContents(getContentUpdates(event.getContents(), currentContents));
                     return event;
                 }).orElse(EventMapper.fromDto(currentQueryTermId, currentAlertId, currentContents));
+    }
+
+    public static List<Event> mergeEvents(List<Event> existingEvents, List<Event> currentEvents) {
+        existingEvents.forEach(existingEvent -> {
+            Optional<Event> event = filterEvent(currentEvents, existingEvent.getQueryTermId(), existingEvent.getAlertId());
+            if (event.isEmpty()) {
+                currentEvents.add(existingEvent);
+            }
+        });
+
+        return currentEvents;
     }
 
     private static Optional<Event> fetchExistingEvent(List<Event> existingEvents, List<Event> currentEvents, Integer queryTermId, String alertId) {
