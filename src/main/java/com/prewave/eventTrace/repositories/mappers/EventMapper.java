@@ -1,21 +1,17 @@
 package com.prewave.eventTrace.repositories.mappers;
 
-import com.prewave.eventTrace.repositories.models.Alert;
+import com.prewave.eventTrace.repositories.models.Content;
 import com.prewave.eventTrace.repositories.models.Event;
-import com.prewave.eventTrace.repositories.models.QueryTerm;
 import com.prewave.eventTrace.services.integration.dto.ContentDto;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class EventMapper {
-    public static Event fromDto(QueryTerm queryTerm, Integer alertId, Integer matches, List<ContentDto> contents) {
-        return new Event(queryTerm.getId(), alertId, matches, getAlertsFromDto(contents));
+    public static Event fromDto(Integer queryTermId, String alertId, List<Content> contents) {
+        return new Event(queryTermId, alertId, contents);
     }
 
-    private static List<Alert> getAlertsFromDto(List<ContentDto> contents) {
-        return  contents.stream()
-                    .map(dto -> new Alert(dto.getText(), dto.getType(), dto.getLanguage()))
-                    .collect(Collectors.toList());
+    public static Content buildContents(ContentDto contentDto, int matches) {
+        return new Content(contentDto.getText(), contentDto.getLanguage(), matches);
     }
 }

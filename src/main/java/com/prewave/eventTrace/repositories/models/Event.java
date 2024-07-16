@@ -9,7 +9,6 @@ import java.util.List;
 @AllArgsConstructor
 public class Event {
     private Integer queryTermId;
-    private Integer alertId;
-    private Integer matches;
-    private List<Alert> alertsDetail;
+    private String alertId;
+    private List<Content> contents;
 }

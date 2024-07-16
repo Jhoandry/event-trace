@@ -5,8 +5,8 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class Alert {
+public class Content {
     private String text;
-    private String type;
     private String language;
+    private Integer matches;
 }

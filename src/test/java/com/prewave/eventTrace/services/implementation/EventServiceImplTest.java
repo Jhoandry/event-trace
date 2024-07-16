@@ -30,8 +30,8 @@ public class EventServiceImplTest {
     @BeforeEach
     void setUp() {
         List<Event> events = Arrays.asList(
-                new Event(1, 1, 0, List.of()),
-                new Event(1, 1, 0, List.of()));
+                new Event(1, "1", List.of()),
+                new Event(1, "1", List.of()));
 
         cacheEvents(events);
     }
