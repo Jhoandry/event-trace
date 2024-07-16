@@ -27,7 +27,7 @@ public class EventServiceImpl implements EventService {
     private List<Event> getEvents() {
         try {
             Cache eventsCached = cacheManager.getCache(eventCacheName);
-            return eventsCached != null ? eventsCached.get("events", List.class) : List.of();
+            return eventsCached.get("events", List.class) != null ? eventsCached.get("events", List.class) : List.of();
         } catch (Exception e) {
             System.err.println("Error getting Events, error message: " + e.getMessage());
         }
