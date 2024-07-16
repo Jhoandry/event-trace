@@ -10,4 +10,5 @@ public class QueryTerm {
     private Integer id;
     private String text;
     private boolean keepOrder;
+    private String language;
 }

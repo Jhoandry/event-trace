@@ -5,6 +5,6 @@ import com.prewave.eventTrace.services.integration.dto.QueryTermDto;
 
 public class QueryTermMapper {
     public static QueryTerm fromDto(QueryTermDto dto) {
-        return new QueryTerm(dto.getId(), dto.getText(), dto.isKeepOrder());
+        return new QueryTerm(dto.getId(), dto.getText(), dto.isKeepOrder(), dto.getLanguage());
     }
 }
