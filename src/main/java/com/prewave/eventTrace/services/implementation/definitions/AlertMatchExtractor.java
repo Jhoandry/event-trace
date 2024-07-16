@@ -22,7 +22,9 @@ public class AlertMatchExtractor {
         alerts.forEach(alert -> {
             filterQueryTermsByLanguage(queryTerms, alert).forEach( queryTerm -> {
                 List<Content> contentMatch = getOccurrences(alert.getContents(), queryTerm);
-                eventEvents.add(EventBuilder.createOrUpdate(existingEvents, eventEvents, queryTerm.getId(), alert.getId(), contentMatch));
+                if (!contentMatch.isEmpty()) {
+                    eventEvents.add(EventBuilder.createOrUpdate(existingEvents, eventEvents, queryTerm.getId(), alert.getId(), contentMatch));
+                }
             });
         });
 
