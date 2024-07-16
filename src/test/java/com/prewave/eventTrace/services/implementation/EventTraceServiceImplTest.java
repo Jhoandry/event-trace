@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.cache.CacheManager;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -29,11 +30,14 @@ public class EventTraceServiceImplTest {
     @MockBean
     private TermsSyncService termsSyncService;
 
-    @MockBean
+    @Autowired
+    private EventTraceServiceImpl eventTraceService;
+
+    @Autowired
     private EventService eventService;
 
     @Autowired
-    private EventTraceServiceImpl eventTraceService;
+    private CacheManager cacheManager;
 
     @Test
     @DisplayName("Should sync events when existing events are present")
@@ -43,12 +47,13 @@ public class EventTraceServiceImplTest {
         List<AlertDto> alerts = List.of(new AlertDto("alert1", List.of(new ContentDto("term2", "text", "en")), LocalDateTime.now(), "tweet"));
         List<QueryTerm> queryTerms = List.of(new QueryTerm(2, "term2", true, "en"));
 
-        when(eventService.fetchEvents()).thenReturn(existingEvents);
+        cacheManager.getCache("events").put("events", existingEvents);
         when(alertService.fetchAlerts()).thenReturn(alerts);
         when(termsSyncService.fetchQueryTerms()).thenReturn(queryTerms);
 
         // when
-        List<Event> result = eventTraceService.syncEvents();
+        eventTraceService.syncEvents();
+        List<Event> result = eventService.fetchEvents();
 
         // then
         assertEquals(2, result.size());
@@ -57,13 +62,16 @@ public class EventTraceServiceImplTest {
     @Test
     @DisplayName("Should return existing events when exception occurs during sync")
     void testSyncEventsWithException() throws Exception {
+        // given
         List<Event> existingEvents = List.of(new Event(1, "alert1", List.of(new Content("text1", "en", 1))));
-
-        when(eventService.fetchEvents()).thenReturn(existingEvents);
+        cacheManager.getCache("events").put("events", existingEvents);
         when(alertService.fetchAlerts()).thenThrow(new RuntimeException("Service unavailable"));
 
-        List<Event> result = eventTraceService.syncEvents();
+        // when
+        eventTraceService.syncEvents();
+        List<Event> result = eventService.fetchEvents();
 
+        // then
         assertEquals(existingEvents, result);
     }
 
